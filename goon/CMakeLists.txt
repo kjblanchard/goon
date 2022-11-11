@@ -7,9 +7,7 @@ add_library(goon SHARED ${FILES})
 
 find_package(spdlog PATH_SUFFIXES .a)
 if(NOT spdlog_FOUND)
-        #Build submodules
-        #For some reason, these are much larger, but will not worry about it for now.
-        add_subdirectory(vendor/spdlog)
+        message(FATAL "Did you forget to install the submodules?")
 endif(NOT spdlog_FOUND)
 
 # Use newest cpp standard for this target
@@ -24,8 +22,7 @@ foreach (_variableName ${_variableNames})
 endforeach()
 
 target_compile_definitions(goon PRIVATE -DGN_BUILD_DLL -DGN_PLATFORM_MACOS )
-target_compile_options(goon PRIVATE -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-newline-eof -Wno-padded -Wno-exit-time-destructors
--Wno-global-constructors -Wno-constant-conversion  -Wno-sign-conversion -Wno-float-conversion -Wno-double-promotion)
+target_compile_options(goon PRIVATE -Wall -Wextra -Wpedantic -Wuninitialized -Wmissing-include-dirs -Wshadow -Wundef -Winvalid-pch)
 
 message(STATUS "Adding include Directories from build submodules, and from header only includes to the project.")
 target_link_libraries(goon
