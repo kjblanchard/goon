@@ -33,3 +33,5 @@
 
 # Folders
 build/
+.DS_Store
+.cache/
