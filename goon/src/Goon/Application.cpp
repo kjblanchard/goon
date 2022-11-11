@@ -9,18 +9,15 @@ namespace Goon {
 
     void Application::Run()
     {
-        WindowResizeEvent e(1234, 1234);
-        if(EventType::WindowResize == e.GetEventType())
-            GN_TRACE("Its the thing!");
-        if(e.IsInCategory(EventCategoryApplication))
-            GN_TRACE("ITS THE CATEGORY!!!");
-        GN_TRACE(e);
-        while (true)
-        {}
+        while (m_Running)
+        {
+            m_Window->OnUpdate();
+        }
     }
 
     Application::Application()
     {
+        m_Window = std::unique_ptr<Window>(Window::Create());
 
     }
 
