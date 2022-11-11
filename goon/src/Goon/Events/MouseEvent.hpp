@@ -1,5 +1,4 @@
 #pragma once
-#include <sstream>
 #include "Goon/Core.h"
 #include "Goon/Events/Event.hpp"
 
@@ -11,7 +10,7 @@ namespace Goon {
                 :m_MouseX(x), m_MouseY(y) {}
             inline float GetX() { return m_MouseX; }
             inline float GetY() { return m_MouseY; }
-            std::string ToString() const override 
+            std::string ToString() const override
             {
                 std::stringstream ss;
                 ss << "Mouse moved event: " << m_MouseX << ',' << m_MouseY;
@@ -31,7 +30,7 @@ namespace Goon {
                 :m_XOffset(xOffset), m_YOffset(yOffset) {}
             inline float GetXOffset() { return m_XOffset; }
             inline float GetYOffset() { return m_YOffset; }
-            std::string ToString() const override 
+            std::string ToString() const override
             {
                 std::stringstream ss;
                 ss << "Mouse scrilled event: " << m_XOffset << ',' << m_YOffset;

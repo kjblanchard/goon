@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "Core.h"
 #include "spdlog/logger.h"
 #include <spdlog/fmt/ostr.h>

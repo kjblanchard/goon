@@ -1,5 +1,6 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <gnpch.hpp>
 #include "Log.hpp"
 
 namespace Goon {

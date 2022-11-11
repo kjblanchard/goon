@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.2)
 message(STATUS "Starting Supergoon Engine Cmake")
 file(GLOB FILES ./src/**/*.cpp)
 add_library(goon SHARED ${FILES})
+target_precompile_headers(goon PRIVATE src/gnpch.hpp)
 
 find_package(spdlog PATH_SUFFIXES .a)
 if(NOT spdlog_FOUND)

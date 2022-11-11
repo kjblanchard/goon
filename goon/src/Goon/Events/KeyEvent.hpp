@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Event.hpp"
-#include <sstream>
 
 namespace Goon {
     class GN_API KeyEvent : public Event
@@ -49,5 +48,5 @@ namespace Goon {
         }
         EVENT_CLASS_TYPE(KeyReleased);
     };
-    
+
 }

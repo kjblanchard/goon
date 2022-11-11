@@ -1,6 +1,5 @@
 #pragma once
 
-#include <sstream>
 #include "Goon/Core.h"
 #include "Goon/Events/Event.hpp"
 

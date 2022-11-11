@@ -1,9 +1,7 @@
 #pragma once
 
 #include "Goon/Core.h"
-#include <functional>
 #include <ostream>
-#include <string>
 
 namespace Goon {
     //TODO We should make events non-blocking, as right now we deal with each one as they come up.
