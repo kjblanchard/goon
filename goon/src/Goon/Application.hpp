@@ -1,3 +1,10 @@
+/**
+ * @file Application.hpp
+ * @brief The actual application that we are going to create
+ * @author Kevin Blanchard
+ * @version 0.1.0
+ * @date 2022-11-14
+ */
 #pragma once
 #include <Goon/Events/Event.hpp>
 #include <Goon/Events/ApplicationEvent.hpp>
@@ -5,11 +12,17 @@
 #include <Goon/Window.hpp>
 
 namespace Goon {
+    /**
+     * @brief The application that will be created.
+     */
     class GN_API Application
     {
         public:
             Application();
             virtual ~Application();
+            /**
+             * @brief Called every tick, updates each layer.
+             */
             void Run();
             void PushLayer(Layer* layer);
             void PushOverlay(Layer* overlay);

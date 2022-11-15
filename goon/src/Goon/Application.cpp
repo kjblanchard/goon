@@ -3,9 +3,20 @@
 #include <Goon/Application.hpp>
 #include <Goon/Log.hpp>
 
+#define BIND_EVENT_FN(x) std::bind(x,this, std::placeholders::_1)
+
 namespace Goon {
 
-#define BIND_EVENT_FN(x) std::bind(x,this, std::placeholders::_1)
+    Application::Application()
+    {
+        m_Window = std::unique_ptr<Window>(Window::Create());
+
+    }
+
+    Application::~Application()
+    {
+
+    }
 
     void Application::Run()
     {
@@ -14,6 +25,8 @@ namespace Goon {
             for(Layer* layer: m_LayerStack)
                 layer->OnUpdate();
             m_Window->OnUpdate();
+
+            //TODO what even is this doing?
             m_Window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent));
         }
     }
@@ -29,7 +42,6 @@ namespace Goon {
             if(e.Handled)
                 break;
         }
-
     }
 
     void Application::PushLayer(Layer* layer)
@@ -46,16 +58,4 @@ namespace Goon {
         m_Running = false;
         return true;
     }
-
-    Application::Application()
-    {
-        m_Window = std::unique_ptr<Window>(Window::Create());
-
-    }
-
-    Application::~Application()
-    {
-
-    }
-
 }

@@ -8,6 +8,7 @@ target_precompile_headers(goon PRIVATE src/gnpch.hpp)
 find_package(spdlog PATH_SUFFIXES .a .lib .dll REQUIRED)
 find_package(glfw3 3.3 REQUIRED PATH_SUFFIXES .a .lib .dll)
 add_subdirectory(vendor/glad)
+add_subdirectory(vendor/imgui)
 set_property(TARGET goon PROPERTY CXX_STANDARD 17)
 
 #For Debug, print aout all variables.
@@ -21,13 +22,14 @@ get_cmake_property(_variableNames VARIABLES)
 target_compile_definitions(goon PRIVATE 
         -DGN_BUILD_DLL -DGN_PLATFORM_MACOS -DGN_ENABLE_ASSERTS
         -DGL_SILENCE_DEPRECATION -DGLFW_INCLUDE_NONE)
-target_compile_options(goon PRIVATE -Wall -Wextra -Wpedantic-errors -Wdeprecated -Wextra-semi )
+target_compile_options(goon PRIVATE -Wall -Wextra -Wpedantic -Wdeprecated -Wextra-semi )
 
 target_link_libraries(goon
         PUBLIC
         spdlog::spdlog
         glfw
         glad
+        imgui
         )
 target_include_directories(goon
         PUBLIC
@@ -36,4 +38,5 @@ target_include_directories(goon
         glfw
         "${CMAKE_SOURCE_DIR}/vendor/glad"
         vendor/glad/include/
+        vendor/imgui
         )
