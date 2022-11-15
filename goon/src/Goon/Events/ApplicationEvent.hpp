@@ -1,5 +1,5 @@
 #pragma once
-#include "Goon/Core.h"
+#include "Goon/Core.hpp"
 #include "Goon/Events/Event.hpp"
 //TODO PCH should handle sstream?  why not?
 #include <sstream>

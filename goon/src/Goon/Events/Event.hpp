@@ -1,5 +1,5 @@
 #pragma once
-#include <Goon/Core.h>
+#include <Goon/Core.hpp>
 #include <ostream>
 
 namespace Goon {
