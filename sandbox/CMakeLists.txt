@@ -11,7 +11,7 @@ target_include_directories(sandbox
         "./goon/src"
         )
 target_link_libraries(sandbox PUBLIC goon)
-target_compile_options(sandbox PRIVATE -Wall -Wextra -Wpedantic -Wuninitialized -Wmissing-include-dirs -Wshadow -Wundef -Winvalid-pch)
+target_compile_options(sandbox PRIVATE -Wall -Wextra -Wpedantic-errors -Wdeprecated -Wextra-semi )
 # Set relative link for this lib.
 set_target_properties(sandbox
     PROPERTIES LINK_FLAGS "-Wl,-rpath,../lib")

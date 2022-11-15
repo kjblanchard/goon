@@ -1,7 +1,8 @@
 #pragma once
-
 #include "Goon/Core.h"
 #include "Goon/Events/Event.hpp"
+//TODO PCH should handle sstream?  why not?
+#include <sstream>
 
 namespace Goon {
     class GN_API WindowResizeEvent : public Event
