@@ -9,5 +9,7 @@
 #include <Goon/Application.hpp>
 #include <Goon/Log.hpp>
 #include <Goon/Layer.hpp>
+//Do we need this?  Probably.
+#include <Goon/ImGui/ImGuiLayer.hpp>
 //Entrypoint
 #include "Goon/Entrypoint.hpp"

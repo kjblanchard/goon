@@ -1,3 +1,4 @@
+#include "Goon/ImGui/ImGuiLayer.hpp"
 #include "Goon/Layer.hpp"
 #include <Goon.hpp>
 
@@ -27,6 +28,7 @@ class Sandbox : public Goon::Application
         Sandbox()
         {
             PushLayer(new ExampleLayer());
+            PushOverlay(new Goon::ImGuiLayer());
 
         }
         ~Sandbox()

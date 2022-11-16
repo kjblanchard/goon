@@ -7,8 +7,12 @@
 
 namespace Goon {
 
+    Application* Application::s_Application = nullptr;
+
     Application::Application()
     {
+        GN_CORE_ASSERT(!s_Application, "Application is already created");
+        s_Application = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
 
     }
@@ -47,10 +51,12 @@ namespace Goon {
     void Application::PushLayer(Layer* layer)
     {
         m_LayerStack.PushLayer(layer);
+        layer->OnAttach();
     }
     void Application::PushOverlay(Layer* overlay)
     {
         m_LayerStack.PushOverlay(overlay);
+        overlay->OnAttach();
     }
 
     bool Application::OnWindowClosed(WindowCloseEvent& e)

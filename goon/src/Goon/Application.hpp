@@ -20,10 +20,12 @@ namespace Goon {
         public:
             Application();
             virtual ~Application();
+            static Application& Get() { return *s_Application; }
             /**
              * @brief Called every tick, updates each layer.
              */
             void Run();
+            Window& GetWindow() { return *m_Window; }
             void PushLayer(Layer* layer);
             void PushOverlay(Layer* overlay);
         private:
@@ -32,6 +34,7 @@ namespace Goon {
             void OnEvent(Event& e);
             bool OnWindowClosed(WindowCloseEvent& e);
             LayerStack m_LayerStack;
+            static Application* s_Application;
     };
 
     //To be defined in the client, for the entrypoint

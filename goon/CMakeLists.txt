@@ -1,9 +1,15 @@
 include(FindPkgConfig)
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.16)
 message(STATUS "Starting Goon Engine configuration")
 file(GLOB GOONFILES src/**/*.cpp)
+file(GLOB NESTEDGOONFILES src/**/**/*.cpp)
+list(APPEND GOONFILES ${NESTEDGOONFILES})
 add_library(goon SHARED ${GOONFILES})
+
+
 target_precompile_headers(goon PRIVATE src/gnpch.hpp)
+
+
 
 find_package(spdlog PATH_SUFFIXES .a .lib .dll REQUIRED)
 find_package(glfw3 3.3 REQUIRED PATH_SUFFIXES .a .lib .dll)
@@ -20,8 +26,10 @@ get_cmake_property(_variableNames VARIABLES)
 #endforeach()
 
 target_compile_definitions(goon PRIVATE 
-        -DGN_BUILD_DLL -DGN_PLATFORM_MACOS -DGN_ENABLE_ASSERTS
-        -DGL_SILENCE_DEPRECATION -DGLFW_INCLUDE_NONE)
+        -DGN_BUILD_DLL -DGN_PLATFORM_MACOS -DGN_ENABLE_ASSERTS #Engine defines that we use, probably set these as CMAKE things
+        -DGL_SILENCE_DEPRECATION -DGLFW_INCLUDE_NONE 
+        -DIMGUI_IMPL_OPENGL_LOADER_CUSTOM #Used since we use glad
+        )
 target_compile_options(goon PRIVATE -Wall -Wextra -Wpedantic -Wdeprecated -Wextra-semi )
 
 target_link_libraries(goon

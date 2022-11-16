@@ -7,6 +7,11 @@
 #include <Goon/Log.hpp>
 #include <Platform/MacWindow.hpp>
 
+#ifdef HELLOIMGUI_MACOS
+#import <AppKit/NSScreen.h>
+#endif
+
+
 namespace Goon {
     /**
      * @brief If GLFW initialized already
@@ -21,6 +26,14 @@ namespace Goon {
     static void GLFWErrorCallback(int error, const char* description)
     {
         GN_CORE_ERROR("GLFW Error {0}: {1}",error, description );
+    }
+
+    static float GetWindowDpiScaling()
+    {
+        //CGFloat scale = NSScreen.mainScreen.backingScaleFactor;
+
+
+
     }
 
     //If this file is included, it defines the Window create function so that when a window create is called, a macwindow is created.
@@ -53,6 +66,10 @@ namespace Goon {
             glfwSetErrorCallback(GLFWErrorCallback);
             s_GLFWInitialized = true;
         }
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         m_window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(m_window);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
