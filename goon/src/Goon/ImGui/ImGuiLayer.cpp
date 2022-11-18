@@ -15,27 +15,27 @@
 
 namespace Goon {
 
-static const char* ImGui_ImplGlfw_GetClipboardText(void* user_data)
-{
+  static const char* ImGui_ImplGlfw_GetClipboardText(void* user_data)
+  {
     return glfwGetClipboardString((GLFWwindow*)user_data);
-}
+  }
 
-static void ImGui_ImplGlfw_SetClipboardText(void* user_data, const char* text)
-{
+  static void ImGui_ImplGlfw_SetClipboardText(void* user_data, const char* text)
+  {
     glfwSetClipboardString((GLFWwindow*)user_data, text);
-}
+  }
   static int ImGui_ImplGlfw_KeyToModifier(int key)
-{
+  {
     if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL)
-        return GLFW_MOD_CONTROL;
+      return GLFW_MOD_CONTROL;
     if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT)
-        return GLFW_MOD_SHIFT;
+      return GLFW_MOD_SHIFT;
     if (key == GLFW_KEY_LEFT_ALT || key == GLFW_KEY_RIGHT_ALT)
-        return GLFW_MOD_ALT;
+      return GLFW_MOD_ALT;
     if (key == GLFW_KEY_LEFT_SUPER || key == GLFW_KEY_RIGHT_SUPER)
-        return GLFW_MOD_SUPER;
+      return GLFW_MOD_SUPER;
     return 0;
-}
+  }
 
 
   static ImGuiKey ImGui_ImplGlfw_KeyToImGuiKey(int key)
@@ -151,8 +151,8 @@ static void ImGui_ImplGlfw_SetClipboardText(void* user_data, const char* text)
     }
   }
 
-static void ImGui_ImplGlfw_UpdateKeyModifiers(int mods, bool pressed)
-{
+  static void ImGui_ImplGlfw_UpdateKeyModifiers(int mods, bool pressed)
+  {
     ImGuiIO& io = ImGui::GetIO();
     switch(mods) 
     {
@@ -170,7 +170,7 @@ static void ImGui_ImplGlfw_UpdateKeyModifiers(int mods, bool pressed)
         break;
     }
 
-}
+  }
 
   ImGuiLayer::ImGuiLayer()
     :Layer("ImGuiLayer")
@@ -189,11 +189,11 @@ static void ImGui_ImplGlfw_UpdateKeyModifiers(int mods, bool pressed)
     ImGuiIO& io = ImGui::GetIO();
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-    auto initialized = ImGui_ImplOpenGL3_Init("#version 150");
-    GN_CORE_INFO("{0} is the init status",initialized);
-    auto& gwindow =      Application::Get().GetWindow();
-    io.FontGlobalScale = 1.0f * gwindow.GetDpi();
-    io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
+    ImGui_ImplOpenGL3_Init("#version 150");
+    //auto& gwindow =      Application::Get().GetWindow();
+    //io.FontGlobalScale = 1.0f * gwindow.GetDpi();
+    //io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
+
     io.SetClipboardTextFn = ImGui_ImplGlfw_SetClipboardText;
     io.GetClipboardTextFn = ImGui_ImplGlfw_GetClipboardText;
   }
@@ -209,8 +209,6 @@ static void ImGui_ImplGlfw_UpdateKeyModifiers(int mods, bool pressed)
     auto& gwindow = app.GetWindow();
     auto mwindow = gwindow.GetWindow<MacWindow>();
     auto glfwwindow = mwindow->GetGlfwWindow();
-    //auto thing =  ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
-    //io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
     float scalex, scaley;
     int display_w, display_h;
     glfwGetWindowContentScale(glfwwindow, &scalex, &scaley);
@@ -274,8 +272,8 @@ static void ImGui_ImplGlfw_UpdateKeyModifiers(int mods, bool pressed)
     int mods = ImGui_ImplGlfw_KeyToModifier(keycode);
     if(mods)
     {
-      GN_CORE_TRACE("Updating a key modifier");
       ImGui_ImplGlfw_UpdateKeyModifiers(mods, true);
+      return false;
     }
     auto imGuiKey = ImGui_ImplGlfw_KeyToImGuiKey(keycode);
     io.AddKeyEvent(imGuiKey, true);
@@ -289,21 +287,20 @@ static void ImGui_ImplGlfw_UpdateKeyModifiers(int mods, bool pressed)
     int mods =ImGui_ImplGlfw_KeyToModifier(keycode);
     if(mods)
     {
-      GN_CORE_TRACE("Updating a key modifier");
       ImGui_ImplGlfw_UpdateKeyModifiers(mods, false);
+      return false;
     }
     auto imGuiKey = ImGui_ImplGlfw_KeyToImGuiKey(keycode);
     io.AddKeyEvent(imGuiKey, false);
     return false;
 
   }
+
   bool ImGuiLayer::OnKeyTyped(KeyTypedEvent &e)
   {
     ImGuiIO& io = ImGui::GetIO();
     io.AddInputCharacter(e.GetKeyCode());
-    GN_CORE_TRACE("Typed");
     return false;
-
   }
 
 
