@@ -3,7 +3,6 @@
 #include <Goon.hpp>
 
 class ExampleLayer : public Goon::Layer
-
 {
     public:
         ExampleLayer()
@@ -11,7 +10,6 @@ class ExampleLayer : public Goon::Layer
         {}
         void OnUpdate() override
         {
-            GN_INFO("Example Layer Update");
 
         }
         void OnEvent(Goon::Event &event) override
@@ -27,7 +25,6 @@ class Sandbox : public Goon::Application
     public:
         Sandbox()
         {
-            PushLayer(new ExampleLayer());
             PushOverlay(new Goon::ImGuiLayer());
 
         }

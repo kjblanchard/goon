@@ -87,5 +87,13 @@ namespace Goon {
              * @return The Created window.
              */
             static Window* Create(const WindowProps& props = WindowProps());
+
+            inline float GetDpi() { return m_DpiScale; }
+            template <typename T>
+                inline T* GetWindow() { return (T*)this; }
+
+
+        protected:
+            float m_DpiScale;
     };
 }

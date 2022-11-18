@@ -1,9 +1,9 @@
 #include <gnpch.hpp>
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 #include <Goon/Application.hpp>
 #include <Goon/Log.hpp>
 
-#define BIND_EVENT_FN(x) std::bind(x,this, std::placeholders::_1)
 
 namespace Goon {
 
@@ -26,20 +26,22 @@ namespace Goon {
     {
         while (m_Running)
         {
+            glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
             for(Layer* layer: m_LayerStack)
                 layer->OnUpdate();
             m_Window->OnUpdate();
 
-            //TODO what even is this doing?
-            m_Window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent));
+            //This binds the onEvent callback on every event in the window.
+            m_Window->SetEventCallback(GN_BIND_EVENT_FN(&Application::OnEvent));
         }
     }
 
     void Application::OnEvent(Event& e)
     {
         EventDispatcher dispatcher(e);
-        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClosed));
-        GN_CORE_TRACE("{0}",e);
+        dispatcher.Dispatch<WindowCloseEvent>(GN_BIND_EVENT_FN(&Application::OnWindowClosed));
+        //GN_CORE_TRACE("{0}",e);
         for(auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
         {
             (*--it)->OnEvent(e);

@@ -29,6 +29,7 @@ namespace Goon {
             virtual void SetEventCallback(const EventCallbackFn& callback) override {m_Data.Event = callback;}
             virtual void SetVSync(bool enabled) override;
             virtual bool IsVSync() const override;
+            inline GLFWwindow* GetGlfwWindow() { return m_window; }
         private:
             /**
              * @brief Initializes the window, called from the constructor
@@ -45,6 +46,9 @@ namespace Goon {
              * @brief Pointer to the underlying GLFW window
              */
             GLFWwindow* m_window;
+            /**
+             * @brief Used in macos to scale properly.
+             */
 
             /**
              * @brief The WIndowdata that is stored inside of GLFW for referencing.
