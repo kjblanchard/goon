@@ -14,6 +14,8 @@ namespace Goon {
         GN_CORE_ASSERT(!s_Application, "Application is already created");
         s_Application = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
+        //This binds the onEvent callback on every event in the window.
+        m_Window->SetEventCallback(GN_BIND_EVENT_FN(&Application::OnEvent));
 
     }
 
@@ -32,8 +34,6 @@ namespace Goon {
                 layer->OnUpdate();
             m_Window->OnUpdate();
 
-            //This binds the onEvent callback on every event in the window.
-            m_Window->SetEventCallback(GN_BIND_EVENT_FN(&Application::OnEvent));
         }
     }
 

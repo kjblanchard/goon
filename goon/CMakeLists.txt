@@ -25,7 +25,7 @@ add_subdirectory(vendor/glad)
 add_subdirectory(vendor/imgui)
 
 message(STATUS "Setting flags")
-set_property(TARGET goon PROPERTY CXX_STANDARD 17)
+set_property(TARGET goon PROPERTY CXX_STANDARD 20)
 
 #For Debug, print aout all variables.
 #get_cmake_property(_variableNames VARIABLES)
@@ -65,4 +65,5 @@ target_include_directories(goon
         "${CMAKE_SOURCE_DIR}/vendor/glad"
         vendor/glad/include/
         vendor/imgui
+        vendor/glm/
         )

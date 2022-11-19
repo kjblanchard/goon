@@ -37,3 +37,7 @@ build/
 .cache/
 *.swo
 *.swp
+
+#New
+update_doc.sh
+doc/

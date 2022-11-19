@@ -3,8 +3,10 @@ file(GLOB MAIN ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 list(APPEND FILES ${MAIN})
 add_executable(sandbox
                 ${FILES})
-set_property(TARGET sandbox PROPERTY CXX_STANDARD 17)
-target_compile_definitions(sandbox PRIVATE -DGN_PLATFORM_MACOS )
+set_property(TARGET sandbox PROPERTY CXX_STANDARD 20)
+target_compile_definitions(sandbox PRIVATE 
+        -DGN_PLATFORM_MACOS -DGN_ENABLE_ASSERTS #Engine defines that we use, probably set these as CMAKE things
+        )
 target_include_directories(sandbox
         PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/"
