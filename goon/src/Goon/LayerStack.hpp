@@ -6,7 +6,6 @@
  * @date 2022-11-14
  */
 #pragma once
-#include <vector>
 #include <Goon/Core.hpp>
 #include <Goon/Layer.hpp>
 

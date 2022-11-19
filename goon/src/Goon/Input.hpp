@@ -28,7 +28,7 @@ namespace Goon {
              *
              * @return true if the key is down.
              */
-            bool IsKeyPressed(int keycode) const { return IsKeyPressedImpl(keycode); }
+            inline bool IsKeyPressed(int keycode) const { return IsKeyPressedImpl(keycode); }
             /**
              * @brief Checks if the mouse button is currently pressed
              *
@@ -36,26 +36,26 @@ namespace Goon {
              *
              * @return true if the key is down
              */
-            bool IsMouseButtonPressed(int button) const { return IsMouseButtonPressedImpl(button); }
+            inline bool IsMouseButtonPressed(int button) const { return IsMouseButtonPressedImpl(button); }
             /**
              * @brief Gets the current mouse position
              *
              * @return Pair of floats, x/y
              */
-            std::pair<float, float> GetMousePosition() const { return { GetMousePositionXImpl(), GetMousePositionYImpl()}; }
+            inline std::pair<float, float> GetMousePosition() const { return { GetMousePositionXImpl(), GetMousePositionYImpl()}; }
             /**
              * @brief Gets the current x position of the mouse
              *
              * @return current mouse position
              */
-            float GetMousePositionX() const { return GetMousePositionXImpl(); }
+            inline float GetMousePositionX() const { return GetMousePositionXImpl(); }
             /**
              * @brief Gets the current y position of the mouse
              *
              * @return  current y position
              */
-            float GetMousePositionY() { return GetMousePositionYImpl(); }
-            static Input& Get() { return *s_Instance; }
+            inline float GetMousePositionY() { return GetMousePositionYImpl(); }
+            inline static Input& Get() { return *s_Instance; }
 
         protected:
             virtual bool IsKeyPressedImpl(int keycode) const = 0;

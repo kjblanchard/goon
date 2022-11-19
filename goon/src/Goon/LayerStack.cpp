@@ -1,5 +1,4 @@
 #include <gnpch.hpp>
-#include <Goon/Core.hpp>
 #include <Goon/LayerStack.hpp>
 
 namespace Goon {
