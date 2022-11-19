@@ -1,18 +1,40 @@
 #pragma once
 
-#include "Core.h"
-#include "spdlog/logger.h"
+#include <Goon/Core.hpp>
+#include <spdlog/logger.h>
 #include <spdlog/fmt/ostr.h>
 
 namespace Goon {
+    /**
+     * @brief Singleton logging class for the engine and application
+     */
     class GN_API Log
     {
         public:
+            /**
+             * @brief Initializes the Logger
+             */
             static void Init();
+            /**
+             * @brief Gets the core logger
+             *
+             * @return Shared ptr to a core logger used for the engine
+             */
             inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() {return s_CoreLogger;}
+            /**
+             * @brief Gets the Client (application) logger
+             *
+             * @return Shared ptr to a client logger
+             */
             inline static std::shared_ptr<spdlog::logger>& GetClientLogger() {return s_ClientLogger;}
         private:
+            /**
+             * @brief Shared ptr to a spdlog logger
+             */
             static std::shared_ptr<spdlog::logger> s_CoreLogger;
+            /**
+             * @brief Shared ptr to a client logger
+             */
             static std::shared_ptr<spdlog::logger> s_ClientLogger;
 
 

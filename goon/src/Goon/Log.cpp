@@ -1,7 +1,7 @@
+#include <gnpch.hpp>
+#include <Goon/Log.hpp>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
-#include <gnpch.hpp>
-#include "Log.hpp"
 
 namespace Goon {
 
@@ -15,6 +15,5 @@ namespace Goon {
         s_CoreLogger->set_level(spdlog::level::trace);
         s_ClientLogger = spdlog::stdout_color_mt("APP");
         s_ClientLogger->set_level(spdlog::level::trace);
-
     }
 }

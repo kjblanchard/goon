@@ -1,6 +1,6 @@
 #pragma once
+#include <Goon/Log.hpp>
 #include <Goon/Core.hpp>
-#include <ostream>
 
 namespace Goon {
     //TODO We should make events non-blocking, as right now we deal with each one as they come up.
@@ -9,7 +9,7 @@ namespace Goon {
         None = 0,
         WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
         AppTick, AppUpdate, AppRender,
-        KeyPressed, KeyReleased,
+        KeyPressed, KeyReleased, KeyTyped,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
     };
 

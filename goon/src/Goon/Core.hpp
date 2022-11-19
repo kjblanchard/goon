@@ -27,3 +27,6 @@
 #define GN_CORE_ASSERT(x, ...)
 #endif
 #endif
+
+//This is used to bind a function from a class easily..  It passes in the current object with this, and then passes in the variable passed in as the second param
+#define GN_BIND_EVENT_FN(x) std::bind(x,this, std::placeholders::_1)

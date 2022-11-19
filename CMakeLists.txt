@@ -1,7 +1,11 @@
-cmake_minimum_required(VERSION 3.2)
+#3.16 for pch support
+cmake_minimum_required(VERSION 3.16)
 project(goon_sandbox
         VERSION 0.1.0
         LANGUAGES CXX)
+if(APPLE)
+        enable_language(OBJC)
+endif(APPLE)
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )

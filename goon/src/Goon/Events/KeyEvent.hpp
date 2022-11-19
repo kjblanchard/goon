@@ -1,6 +1,6 @@
 #pragma once
-
 #include "Event.hpp"
+#include <sstream>
 
 namespace Goon {
     class GN_API KeyEvent : public Event
@@ -20,6 +20,7 @@ namespace Goon {
         public:
             KeyPressedEvent(int keycode, int repeatCount)
                 :KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+            EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
             inline int GetRepeatCount(  ) const { return m_RepeatCount; }
             std::string ToString() const override
             {
@@ -48,5 +49,26 @@ namespace Goon {
         }
         EVENT_CLASS_TYPE(KeyReleased);
     };
+
+    class GN_API KeyTypedEvent : public KeyEvent
+    {
+        public:
+            KeyTypedEvent(int keycode)
+                :KeyEvent(keycode){}
+            EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+            inline int GetRepeatCount(  ) const { return m_RepeatCount; }
+            std::string ToString() const override
+            {
+                std::stringstream ss;
+                ss << "Key Typed event: " << m_KeyCode << " (  " << m_RepeatCount << " repeats)";
+                return ss.str();
+            }
+
+            EVENT_CLASS_TYPE(KeyTyped)
+        private:
+            int m_RepeatCount;
+
+    };
+
 
 }

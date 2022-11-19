@@ -1,8 +1,6 @@
-#include "Goon/Layer.hpp"
 #include <Goon.hpp>
 
 class ExampleLayer : public Goon::Layer
-
 {
     public:
         ExampleLayer()
@@ -10,12 +8,10 @@ class ExampleLayer : public Goon::Layer
         {}
         void OnUpdate() override
         {
-            GN_INFO("Example Layer Update");
 
         }
         void OnEvent(Goon::Event &event) override
         {
-            GN_TRACE("{0}", event);
 
         }
 
@@ -26,7 +22,8 @@ class Sandbox : public Goon::Application
     public:
         Sandbox()
         {
-            PushLayer(new ExampleLayer());
+            //PushOverlay(new ExampleLayer());
+            PushOverlay(new Goon::ImGuiLayer());
 
         }
         ~Sandbox()

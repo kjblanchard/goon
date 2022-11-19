@@ -1,6 +1,7 @@
 #pragma once
 #include "Goon/Core.hpp"
 #include "Goon/Events/Event.hpp"
+#include <sstream>
 
 namespace Goon {
     class GN_API MouseMovedEvent : public Event
@@ -77,6 +78,6 @@ namespace Goon {
                 ss << "MouseButtonReleasedEvent: " << m_Button;
                 return ss.str();
             }
-            EVENT_CLASS_TYPE(MouseButtonPressed)
+            EVENT_CLASS_TYPE(MouseButtonReleased)
     };
 }
