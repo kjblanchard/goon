@@ -1,9 +1,13 @@
-# Goon Engine
+# [Goon Engine](https://github.com/kjblanchard/goon)
 
 A engine built in cpp.  Trying to learn a bit more about cpp, 3d programming/opengl, and multi platform engine building.
 - Mostly developed on macos apple silicon
 - Using minimal IDE, 100% vim and lldb for debugging.
 - Tracking the project in github projects
+
+## Documentation
+- [Doxygen](https://docs.supergoon.com/index.html)
+- Check the github wiki page one day
 
 ## License
 

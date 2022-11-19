@@ -24,3 +24,6 @@ lldb:
 	@cd ./$(BUILD_FOLDER) && lldb ./$(BINARY_NAME)
 
 debug: rebuild lldb
+
+doc:
+	@cd ./goon/doc/; ./update_doc.sh; cd -
