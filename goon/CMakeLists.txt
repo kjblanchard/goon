@@ -65,4 +65,5 @@ target_include_directories(goon
         "${CMAKE_SOURCE_DIR}/vendor/glad"
         vendor/glad/include/
         vendor/imgui
+        vendor/glm/
         )
