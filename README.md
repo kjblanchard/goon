@@ -10,10 +10,13 @@ A engine built in cpp.  Trying to learn a bit more about cpp, 3d programming/ope
 All of the licenses that I'm using will be listed here.
 
 ### Libraries
-- [glfw](https://www.glfw.org/license.html) - ZLIB
-- [ImGui](https://github.com/ocornut/imgui/blob/master/LICENSE.txt) - MIT
-- [doxygen](https://doxygen.nl) - GPL
-- [openalsoft](https://github.com/kcat/openal-soft/blob/master/COPYING) - LGPLv2
+- [glfw](https://www.glfw.org/license.html) - ZLIB | Windowing
+- [ImGui](https://github.com/ocornut/imgui/blob/master/LICENSE.txt) - MIT | Engine UI
+- [doxygen](https://doxygen.nl) - GPL | Automatic documentation
+- [openalsoft](https://github.com/kcat/openal-soft/blob/master/COPYING) - LGPLv2 | OpenAL implementation
+- [glad](https://github.com/Dav1dde/glad/blob/glad2/LICENSE) - MIT | Get proper OpenGL implementation functions
+- [spdlog](https://github.com/gabime/spdlog/blob/v1.x/LICENSE) - MIT | Easy cpp loggin
+- [glm](https://github.com/g-truc/glm/blob/master/copying.txt) - MIT | Math
 
 
 ## Acknowledgements
