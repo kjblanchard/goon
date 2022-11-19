@@ -1,7 +1,7 @@
 include(FindPkgConfig)
 cmake_minimum_required(VERSION 3.16)
 message(STATUS "Starting Goon Engine configuration")
-file(GLOB_RECURSE GOONFILES src/*.cpp)
+file(GLOB_RECURSE GOONFILES src/*.c* src/*.h*)
 #Platform specific Project setup
 if(APPLE)
         file(GLOB_RECURSE OBJCFILES src/*.mm)

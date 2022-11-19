@@ -1,7 +1,6 @@
 #pragma once
-#include "Goon/Log.hpp"
+#include <Goon/Log.hpp>
 #include <Goon/Core.hpp>
-#include <ostream>
 
 namespace Goon {
     //TODO We should make events non-blocking, as right now we deal with each one as they come up.

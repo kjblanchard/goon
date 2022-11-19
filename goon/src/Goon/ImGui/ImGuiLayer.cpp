@@ -1,6 +1,4 @@
-#include "Goon/Events/Event.hpp"
-#include "Goon/Events/KeyEvent.hpp"
-#include "Goon/Events/MouseEvent.hpp"
+//This is temporary?
 #include "Platform/MacWindow.hpp"
 #include <gnpch.hpp>
 #include <GLFW/glfw3.h>
@@ -190,10 +188,6 @@ namespace Goon {
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     ImGui_ImplOpenGL3_Init("#version 150");
-    //auto& gwindow =      Application::Get().GetWindow();
-    //io.FontGlobalScale = 1.0f * gwindow.GetDpi();
-    //io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
-
     io.SetClipboardTextFn = ImGui_ImplGlfw_SetClipboardText;
     io.GetClipboardTextFn = ImGui_ImplGlfw_GetClipboardText;
   }
@@ -207,8 +201,8 @@ namespace Goon {
     ImGuiIO& io = ImGui::GetIO();
     auto& app = Application::Get();
     auto& gwindow = app.GetWindow();
-    auto mwindow = gwindow.GetWindow<MacWindow>();
-    auto glfwwindow = mwindow->GetGlfwWindow();
+    auto& mwindow = gwindow.GetNativeWindow<MacWindow>();
+    auto glfwwindow = mwindow.GetGlfwWindow();
     float scalex, scaley;
     int display_w, display_h;
     glfwGetWindowContentScale(glfwwindow, &scalex, &scaley);
@@ -231,7 +225,6 @@ namespace Goon {
   bool ImGuiLayer::OnMouseMove(MouseMovedEvent &e)
   {
     ImGuiIO& io = ImGui::GetIO();
-    //io.MousePos = ImVec2(e.GetX(), e.GetY());
     io.AddMousePosEvent(e.GetX(), e.GetY());
     return false;
 
@@ -241,7 +234,6 @@ namespace Goon {
   {
     ImGuiIO& io = ImGui::GetIO();
     io.AddMouseButtonEvent(e.GetMouseButton(), true);
-    //io.MouseDown[e.GetMouseButton()] = true;
     return true;
 
   }
@@ -250,7 +242,6 @@ namespace Goon {
   {
     ImGuiIO& io = ImGui::GetIO();
     io.AddMouseButtonEvent(e.GetMouseButton(), false);
-    //io.MouseDown[e.GetMouseButton()] = false;
     return false;
 
   }
@@ -258,7 +249,6 @@ namespace Goon {
   bool ImGuiLayer::OnMouseScrolled(MouseScrolledEvent &e)
   {
     ImGuiIO& io = ImGui::GetIO();
-    //io.AddMouseWheelEvent(float wh_x, float wh_y)
     io.MouseWheel += e.GetYOffset();
     io.MouseWheelH += e.GetXOffset();
     return false;
@@ -306,7 +296,6 @@ namespace Goon {
 
   void ImGuiLayer::OnEvent(Event& e) 
   {
-    //dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClosed));
     auto dispatcher = EventDispatcher(e);
     dispatcher.Dispatch<MouseMovedEvent>(GN_BIND_EVENT_FN(&ImGuiLayer::OnMouseMove));
     dispatcher.Dispatch<MouseButtonPressedEvent>(GN_BIND_EVENT_FN(&ImGuiLayer::OnMouseButtonPressed));

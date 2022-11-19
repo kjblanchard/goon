@@ -1,5 +1,3 @@
-#include "Goon/ImGui/ImGuiLayer.hpp"
-#include "Goon/Layer.hpp"
 #include <Goon.hpp>
 
 class ExampleLayer : public Goon::Layer
@@ -14,7 +12,6 @@ class ExampleLayer : public Goon::Layer
         }
         void OnEvent(Goon::Event &event) override
         {
-            GN_TRACE("{0}", event);
 
         }
 
@@ -25,6 +22,7 @@ class Sandbox : public Goon::Application
     public:
         Sandbox()
         {
+            //PushOverlay(new ExampleLayer());
             PushOverlay(new Goon::ImGuiLayer());
 
         }

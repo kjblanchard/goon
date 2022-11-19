@@ -7,8 +7,6 @@
 #include <Goon/Log.hpp>
 #include <Platform/MacWindow.hpp>
 
-#import <AppKit/NSScreen.h>
-
 
 namespace Goon {
     /**
@@ -26,14 +24,11 @@ namespace Goon {
         GN_CORE_ERROR("GLFW Error {0}: {1}",error, description );
     }
 
-    static float GetWindowDpiScaling()
-    {
-        return (float)NSScreen.mainScreen.backingScaleFactor;
-    }
 
     //If this file is included, it defines the Window create function so that when a window create is called, a macwindow is created.
     Window* Window::Create(const WindowProps& props)
     {
+
         return new MacWindow(props);
     }
 
@@ -66,7 +61,7 @@ namespace Goon {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         m_window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-        m_DpiScale = GetWindowDpiScaling();
+        //m_DpiScale = GetWindowDpiScaling();
         glfwMakeContextCurrent(m_window);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         GN_CORE_ASSERT(status, "Failed to initialize glad");

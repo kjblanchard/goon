@@ -7,13 +7,14 @@
  */
 #pragma once
 #include <GLFW/glfw3.h>
+#include <Goon/Core.hpp>
 #include <Goon/Window.hpp>
 
 namespace Goon {
     /**
      * @brief A window used on MacOS
      */
-    class MacWindow : public Window
+    class GN_API MacWindow : public Window
     {
         public:
             /**
@@ -26,6 +27,7 @@ namespace Goon {
             void OnUpdate() override;
             inline unsigned int GetWidth() const override { return m_Data.Width; }
             inline unsigned int GetHeight() const override { return m_Data.Height; }
+            inline std::pair<unsigned int, unsigned int> GetWindowSize() { return { m_Data.Width, m_Data.Height }; }
             virtual void SetEventCallback(const EventCallbackFn& callback) override {m_Data.Event = callback;}
             virtual void SetVSync(bool enabled) override;
             virtual bool IsVSync() const override;

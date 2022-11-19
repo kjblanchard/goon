@@ -66,6 +66,7 @@ namespace Goon {
              *
              * @param callback The callback function to bind
              */
+            virtual std::pair<unsigned int, unsigned int> GetWindowSize() = 0;
             virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
             /**
              * @brief Sets the windows vsync
@@ -88,12 +89,7 @@ namespace Goon {
              */
             static Window* Create(const WindowProps& props = WindowProps());
 
-            inline float GetDpi() { return m_DpiScale; }
             template <typename T>
-                inline T* GetWindow() { return (T*)this; }
-
-
-        protected:
-            float m_DpiScale;
+                inline T& GetNativeWindow() { return *static_cast<T*>(this); }
     };
 }
