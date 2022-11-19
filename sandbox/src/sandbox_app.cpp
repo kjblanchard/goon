@@ -24,7 +24,6 @@ class Sandbox : public Goon::Application
     public:
         Sandbox()
         {
-            PushOverlay(new ExampleLayer());
             PushOverlay(new Goon::ImGuiLayer());
 
         }
