@@ -67,6 +67,7 @@ namespace Goon {
              * @param callback The callback function to bind
              */
             virtual std::pair<unsigned int, unsigned int> GetWindowSize() = 0;
+
             virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
             /**
              * @brief Sets the windows vsync
@@ -80,6 +81,18 @@ namespace Goon {
              * @return True if vsync is enabled.
              */
             virtual bool IsVSync() const = 0;
+            /**
+             * @brief The DPI scaling of the current window, this is needed as glfw / mac does dpi scaling funky.
+             *
+             * @return The current scaling x/y in the window
+             */
+            virtual std::pair<float, float> GetWindowContentScaling() const = 0;
+            /**
+             * @brief Gets the window size in pixels.  This is needed as mac is funky
+             *
+             * @return The amount of pixels, x and y in a pair
+             */
+            virtual std::pair<int, int> GetWindowFrameBufferSize() const = 0;
             /**
              * @brief Creates a window.
              *

@@ -31,6 +31,8 @@ namespace Goon {
             virtual void SetEventCallback(const EventCallbackFn& callback) override {m_Data.Event = callback;}
             virtual void SetVSync(bool enabled) override;
             virtual bool IsVSync() const override;
+            virtual std::pair<float, float> GetWindowContentScaling() const override;
+            virtual std::pair<int, int> GetWindowFrameBufferSize() const override;
             inline GLFWwindow* GetGlfwWindow() { return m_window; }
         private:
             /**

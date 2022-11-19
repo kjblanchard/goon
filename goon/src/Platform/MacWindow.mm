@@ -24,6 +24,20 @@ namespace Goon {
         GN_CORE_ERROR("GLFW Error {0}: {1}",error, description );
     }
 
+    std::pair<float, float> MacWindow::GetWindowContentScaling() const
+    {
+        float scalex, scaley;
+        glfwGetWindowContentScale(m_window, &scalex, &scaley);
+        return { scalex, scaley };
+    }
+
+    std::pair<int, int> MacWindow::GetWindowFrameBufferSize() const
+    {
+        int display_w, display_h;
+        glfwGetFramebufferSize(m_window, &display_w, &display_h);
+        return { display_w, display_h };
+    }
+
 
     //If this file is included, it defines the Window create function so that when a window create is called, a macwindow is created.
     Window* Window::Create(const WindowProps& props)

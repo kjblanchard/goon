@@ -1,6 +1,5 @@
-//This is temporary?
-#include "Platform/MacWindow.hpp"
 #include <gnpch.hpp>
+//TODO I should be able to remove glfw after moving to the imgui docking.
 #include <GLFW/glfw3.h>
 #include <imgui.h>
 #include <Goon/Layer.hpp>
@@ -200,14 +199,11 @@ namespace Goon {
 
     ImGuiIO& io = ImGui::GetIO();
     auto& app = Application::Get();
-    auto& gwindow = app.GetWindow();
-    auto& mwindow = gwindow.GetNativeWindow<MacWindow>();
-    auto glfwwindow = mwindow.GetGlfwWindow();
-    float scalex, scaley;
-    int display_w, display_h;
-    glfwGetWindowContentScale(glfwwindow, &scalex, &scaley);
-    glfwGetFramebufferSize(glfwwindow, &display_w, &display_h);
-    io.DisplaySize = ImVec2(display_w/scalex, display_h/scaley);
+    auto& window = app.GetWindow();
+    auto [scalex, scaley] = window.GetWindowContentScaling();
+    auto [displayw, displayh] = window.GetWindowFrameBufferSize();
+
+    io.DisplaySize = ImVec2(displayw/scalex, displayh/scaley);
     io.DisplayFramebufferScale = ImVec2(scalex, scaley);
 
     float time = (float)glfwGetTime();
