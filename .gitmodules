@@ -4,9 +4,6 @@
 [submodule "goon/vendor/glfw"]
 	path = goon/vendor/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "goon/vendor/imgui"]
-	path = goon/vendor/imgui
-	url = git@github.com:kjblanchard/imgui.git
 [submodule "goon/vendor/glm"]
 	path = goon/vendor/glm
 	url = https://github.com/g-truc/glm.git
