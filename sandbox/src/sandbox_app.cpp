@@ -1,3 +1,4 @@
+#include "Goon/Input.hpp"
 #include <Goon.hpp>
 
 class ExampleLayer : public Goon::Layer
@@ -7,6 +8,7 @@ class ExampleLayer : public Goon::Layer
             :Layer("Example")
         {}
         void OnUpdate() override
+
         {
 
         }
@@ -22,7 +24,7 @@ class Sandbox : public Goon::Application
     public:
         Sandbox()
         {
-            //PushOverlay(new ExampleLayer());
+            PushOverlay(new ExampleLayer());
             PushOverlay(new Goon::ImGuiLayer());
 
         }
