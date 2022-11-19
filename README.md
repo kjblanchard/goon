@@ -1,6 +1,6 @@
 # Goon Engine
 
-A engine built in Cpp, that you can create a game with lua scripts.  Trying to learn a bit more about cpp, 3d programming/opengl, and multi platform engine building.  Thanks to @Cherno for insight.
+A engine built in cpp.  Trying to learn a bit more about cpp, 3d programming/opengl, and multi platform engine building.
 - Mostly developed on macos apple silicon
 - Using minimal IDE, 100% vim and lldb for debugging.
 - Tracking the project in github projects
