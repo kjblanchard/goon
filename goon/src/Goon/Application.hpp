@@ -10,7 +10,6 @@
 #include <Goon/Events/ApplicationEvent.hpp>
 #include <Goon/LayerStack.hpp>
 #include <Goon/Window.hpp>
-#include <memory>
 
 namespace Goon {
     class ImGuiLayer;
