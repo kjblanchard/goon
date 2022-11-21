@@ -13,19 +13,12 @@ namespace Goon {
         virtual void OnAttach() override;
         virtual void OnDetach() override;
         virtual void OnUpdate() override;
-        virtual void OnEvent(Event&) override;
+        virtual void OnImGuiRender() override;
+        void Begin();
+        void End();
 
       private:
-        bool OnMouseMove(MouseMovedEvent &e);
-        bool OnMouseButtonPressed(MouseButtonPressedEvent &e);
-        bool OnMouseButtonReleased(MouseButtonReleasedEvent &e);
-        bool OnMouseScrolled(MouseScrolledEvent &e);
-        bool OnKeyPressed(KeyPressedEvent &e);
-        bool OnKeyReleased(KeyReleasedEvent &e);
-        bool OnKeyTyped(KeyTypedEvent &e);
-
-      private:
-        float m_time;
+        //float m_time = 0.0f;
 
     };
 }

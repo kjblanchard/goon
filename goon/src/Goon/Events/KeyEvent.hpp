@@ -47,7 +47,7 @@ namespace Goon {
             ss << "Key released event: " << m_KeyCode;
             return ss.str();
         }
-        EVENT_CLASS_TYPE(KeyReleased);
+        EVENT_CLASS_TYPE(KeyReleased)
     };
 
     class GN_API KeyTypedEvent : public KeyEvent

@@ -14,7 +14,7 @@ if(APPLE)
                 set(THREADS_PREFER_PTHREAD_FLAG ON)
         endif(NOT IOS)
 endif(APPLE)
-add_library(goon SHARED ${GOONFILES})
+add_library(goon STATIC ${GOONFILES})
 
 message(STATUS "Finding libraries")
 #Preinstalled libraries
@@ -45,8 +45,10 @@ endif(APPLE)
 
 target_compile_definitions(goon PRIVATE 
         -DGN_BUILD_DLL -DGN_PLATFORM_MACOS -DGN_ENABLE_ASSERTS #Engine defines that we use, probably set these as CMAKE things
-        -DGL_SILENCE_DEPRECATION -DGLFW_INCLUDE_NONE 
-        -DIMGUI_IMPL_OPENGL_LOADER_CUSTOM #Used since we use glad
+        -DGL_SILENCE_DEPRECATION 
+        -DGLFW_INCLUDE_NONE  #This will try and include gl if you don't
+        #-DIMGUI_IMPL_OPENGL_LOADER_CUSTOM #Used since we use glad - Removing this, as this makes you use the custom loader.
+        -DIMGUI_IMPL_OPENGL_LOADER_GLAD #Used since we use glad?
         )
 target_compile_options(goon PRIVATE -Wall -Wextra -Wpedantic -Wdeprecated -Wextra-semi )
 

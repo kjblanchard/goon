@@ -59,7 +59,7 @@ namespace Goon {
             /**
              * @brief The position that we will be inserting the layers, so that we can add layers before overlays
              */
-            std::vector<Layer*>::iterator m_LayerInsert;
+            unsigned int m_LayerInsertIndex = 0;
 
     };
 }

@@ -12,7 +12,7 @@ class ExampleLayer : public Goon::Layer
         {
 
         }
-        void OnEvent(Goon::Event &event) override
+        void OnEvent(Goon::Event&) override
         {
 
         }
@@ -24,7 +24,6 @@ class Sandbox : public Goon::Application
     public:
         Sandbox()
         {
-            PushOverlay(new Goon::ImGuiLayer());
 
         }
         ~Sandbox()

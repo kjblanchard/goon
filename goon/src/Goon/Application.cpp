@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <Goon/Application.hpp>
 #include <Goon/Log.hpp>
+#include <Goon/ImGui/ImGuiLayer.hpp>
 
 
 namespace Goon {
@@ -14,6 +15,8 @@ namespace Goon {
         GN_CORE_ASSERT(!s_Application, "Application is already created");
         s_Application = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
+        m_ImGuiLayer = new ImGuiLayer();
+        PushOverlay(m_ImGuiLayer);
         //This binds the onEvent callback on every event in the window.
         m_Window->SetEventCallback(GN_BIND_EVENT_FN(&Application::OnEvent));
 
@@ -29,9 +32,13 @@ namespace Goon {
         while (m_Running)
         {
             glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT);
             for(Layer* layer: m_LayerStack)
                 layer->OnUpdate();
+            m_ImGuiLayer->Begin();
+            for(Layer* layer: m_LayerStack)
+                layer->OnImGuiRender();
+            m_ImGuiLayer->End();
             m_Window->OnUpdate();
 
         }
@@ -60,7 +67,7 @@ namespace Goon {
         overlay->OnAttach();
     }
 
-    bool Application::OnWindowClosed(WindowCloseEvent& e)
+    bool Application::OnWindowClosed(WindowCloseEvent&)
     {
         m_Running = false;
         return true;

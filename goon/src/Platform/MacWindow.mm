@@ -104,7 +104,7 @@ namespace Goon {
                     WindowCloseEvent event;
                     data.Event(event);
                 });
-        glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+        glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int, int action, int)
                 {
                     WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                     switch(action)
@@ -131,7 +131,7 @@ namespace Goon {
                         }
                     }
                 });
-        glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods)
+        glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int)
                 {
                 WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                 switch(action)
