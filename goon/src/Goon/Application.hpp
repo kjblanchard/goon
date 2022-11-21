@@ -12,6 +12,7 @@
 #include <Goon/Window.hpp>
 
 namespace Goon {
+    class ImGuiLayer;
     /**
      * @brief The application that will be created.
      */
@@ -30,6 +31,7 @@ namespace Goon {
             void PushOverlay(Layer* overlay);
         private:
             std::unique_ptr<Window> m_Window;
+            ImGuiLayer* m_ImGuiLayer;
             bool m_Running = true;
             void OnEvent(Event& e);
             bool OnWindowClosed(WindowCloseEvent& e);

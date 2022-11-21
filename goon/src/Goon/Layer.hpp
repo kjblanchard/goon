@@ -26,6 +26,7 @@ public:
   virtual ~Layer();
   virtual void OnAttach() {}
   virtual void OnDetach() {}
+  virtual void OnImGuiRender() {}
   /**
    * @brief What should happen on each update of the layer
    */

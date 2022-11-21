@@ -2,7 +2,7 @@
 
 extern Goon::Application *Goon::CreateApplication();
 
-int main(int argc, char** argv)
+int main(int , char** )
 {
     Goon::Log::Init();
     auto app = Goon::CreateApplication();

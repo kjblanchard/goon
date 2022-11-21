@@ -27,7 +27,7 @@ namespace Goon {
             void OnUpdate() override;
             inline unsigned int GetWidth() const override { return m_Data.Width; }
             inline unsigned int GetHeight() const override { return m_Data.Height; }
-            inline std::pair<unsigned int, unsigned int> GetWindowSize() { return { m_Data.Width, m_Data.Height }; }
+            inline std::pair<unsigned int, unsigned int> GetWindowSize() override { return { m_Data.Width, m_Data.Height }; }
             virtual void SetEventCallback(const EventCallbackFn& callback) override {m_Data.Event = callback;}
             virtual void SetVSync(bool enabled) override;
             virtual bool IsVSync() const override;
