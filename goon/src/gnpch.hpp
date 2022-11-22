@@ -16,6 +16,4 @@
 
 //Handle platform specific includes.
 #ifdef GN_PLATFORM_MACOS
-#elifdef GN_PLATFORM_WINDOWS
-#elifdef GN_PLATFORM_LINUX
 #endif

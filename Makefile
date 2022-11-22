@@ -9,6 +9,9 @@ all: build
 configure:
 	@cmake . -B build -D CMAKE_BUILD_TYPE=Debug
 
+windows:
+	cmake . -B build -D CMAKE_PREFIX_PATH=/c/cmake -G 'MinGW Makefiles'
+
 build:
 	@cmake --build build
 

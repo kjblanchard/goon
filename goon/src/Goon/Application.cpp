@@ -1,6 +1,6 @@
 #include <gnpch.hpp>
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <Goon/Application.hpp>
 #include <Goon/Log.hpp>
 #include <Goon/ImGui/ImGuiLayer.hpp>
