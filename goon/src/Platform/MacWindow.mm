@@ -1,6 +1,6 @@
 #include <gnpch.hpp>
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <Goon/Events/ApplicationEvent.hpp>
 #include <Goon/Events/KeyEvent.hpp>
 #include <Goon/Events/MouseEvent.hpp>
@@ -88,7 +88,7 @@ namespace Goon {
                     WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                     auto event = KeyTypedEvent(code);
                     data.Event(event);
-                
+
                 });
         glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height)
                 {
