@@ -5,12 +5,16 @@ add_executable(sandbox
                 ${FILES})
 set_property(TARGET sandbox PROPERTY CXX_STANDARD 20)
 if(WIN32)
-target_compile_definitions(sandbox PRIVATE 
+target_compile_definitions(sandbox PRIVATE
         -DGN_PLATFORM_MACOS -DGN_ENABLE_ASSERTS #Engine defines that we use, probably set these as CMAKE things
         )
 elseif(APPLE)
-target_compile_definitions(sandbox PRIVATE 
+target_compile_definitions(sandbox PRIVATE
         -DGN_PLATFORM_WINDOWS -DGN_ENABLE_ASSERTS #Engine defines that we use, probably set these as CMAKE things
+        )
+else()
+target_compile_definitions(sandbox PRIVATE
+        -DGN_PLATFORM_LINUX -DGN_ENABLE_ASSERTS #Engine defines that we use, probably set these as CMAKE things
         )
 endif(WIN32)
 target_include_directories(sandbox

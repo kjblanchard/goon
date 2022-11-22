@@ -9,7 +9,7 @@
 #endif
 
 #define BIT(x) (1 << x)
-#ifdef GN_PLATFORM_MACOS
+#if defined(GN_PLATFORM_MACOS) || defined(GN_PLATFORM_LINUX)
 #ifdef GN_ENABLE_ASSERTS
 #include <signal.h>
 #define GN_ASSERT(x, ...)                                   \
