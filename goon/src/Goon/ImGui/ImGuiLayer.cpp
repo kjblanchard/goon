@@ -13,6 +13,16 @@
 
 namespace Goon {
 
+static void InitializeImGuiGL()
+{
+  #ifdef GN_PLATFORM_MACOS
+  ImGui_ImplOpenGL3_Init("#version 150");
+  #else
+  ImGui_ImplOpenGL3_Init("#version 460");
+  #endif
+}
+
+
   ImGuiLayer::ImGuiLayer()
     :Layer("ImGuiLayer")
   {
@@ -35,7 +45,7 @@ namespace Goon {
 //    io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 //    io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 //    io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
-    ImGui_ImplOpenGL3_Init("#version 150");
+    InitializeImGuiGL();
 //    io.SetClipboardTextFn = ImGui_ImplGlfw_SetClipboardText;
 //    io.GetClipboardTextFn = ImGui_ImplGlfw_GetClipboardText;
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.

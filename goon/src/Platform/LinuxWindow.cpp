@@ -1,3 +1,4 @@
+#ifdef GN_PLATFORM_LINUX
 #include <gnpch.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -5,6 +6,8 @@
 #include <Goon/Events/KeyEvent.hpp>
 #include <Goon/Events/MouseEvent.hpp>
 #include <Goon/Log.hpp>
+
+// TODO Use windows window hpp file.
 #include <Platform/MacWindow.hpp>
 
 
@@ -88,7 +91,7 @@ namespace Goon {
                     WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                     auto event = KeyTypedEvent(code);
                     data.Event(event);
-
+                
                 });
         glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height)
                 {
@@ -194,3 +197,4 @@ namespace Goon {
     }
 
 }
+#endif
