@@ -6,9 +6,9 @@
  * @date 2022-11-14
  */
 #pragma once
-#include <GLFW/glfw3.h>
 #include <Goon/Core.hpp>
 #include <Goon/Window.hpp>
+#include <Platform/OpenGL/OpenGLContext.hpp>
 
 namespace Goon {
     /**
@@ -50,6 +50,8 @@ namespace Goon {
              * @brief Pointer to the underlying GLFW window
              */
             GLFWwindow* m_window;
+
+            OpenGLContext* m_Context;
             /**
              * @brief Used in macos to scale properly.
              */

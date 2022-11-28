@@ -1,8 +1,8 @@
 #include <gnpch.hpp>
 #include <GLFW/glfw3.h>
 #include <Goon/Application.hpp>
-#include <Platform/MacWindow.hpp>
-#include <Platform/MacInput.hpp>
+#include <Platform/Mac/MacWindow.hpp>
+#include <Platform/Mac/MacInput.hpp>
 
 namespace Goon {
 
