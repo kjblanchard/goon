@@ -6,6 +6,7 @@ namespace Goon
     {
 
     public:
-        static Shader *Create(const std::string& vertexShader, const std::string& fragmentShader);
+        virtual ~Shader() {}
+        static Shader *Create(const std::string &vertexShader, const std::string &fragmentShader);
     };
 }

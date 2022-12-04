@@ -27,6 +27,7 @@ namespace Goon
         glBindVertexArray(m_VertexArray);
 
         // Vertex buffer
+
         glGenBuffers(1, &m_VertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
