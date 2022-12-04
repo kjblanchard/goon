@@ -2,15 +2,17 @@
 #include <Goon/Renderer/Renderer.hpp>
 #include <Goon/Renderer/Buffer.hpp>
 #include <Goon/Core.hpp>
+#include <Platform/OpenGL/OpenGLBuffer.hpp>
 
 namespace Goon
 {
-    VertexBuffer *VertexBuffer::Create(float* vertices, uint32_t size)
+    VertexBuffer *VertexBuffer::Create(float *vertices, uint32_t size)
     {
         auto rendererType = Renderer::GetAPI();
         GN_CORE_ASSERT(rendererType != RendererAPI::None, "Cannot create API with no backend.");
         if (rendererType == RendererAPI::OpenGL)
         {
+            return new OpenGLVertexBuffer(vertices, size);
         }
         else
         {

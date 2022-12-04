@@ -6,6 +6,7 @@
 #include <Goon/Renderer/Renderer.hpp>
 #include <Goon/ImGui/ImGuiLayer.hpp>
 #include <Goon/Renderer/Shader.hpp>
+#include <Goon/Renderer/Buffer.hpp>
 
 namespace Goon
 {
@@ -26,19 +27,14 @@ namespace Goon
         glGenVertexArrays(1, &m_VertexArray);
         glBindVertexArray(m_VertexArray);
 
-        // Vertex buffer
-
-        glGenBuffers(1, &m_VertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-
         float vertices[] = {
             0.5f, 0.5f, 0.0f,   // top right
             0.5f, -0.5f, 0.0f,  // bottom right
             -0.5f, -0.5f, 0.0f, // bottom left
             -0.5f, 0.5f, 0.0f   // top left
         };
-        // Now we need to put this data on the GPU, as it was on the CPU before.
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        // Vertex buffer
+        VertexBuffer::Create(vertices, sizeof(vertices));
 
         // Vertex shader
         const char *vertexShaderSource = "#version 330 core\n"
@@ -73,7 +69,7 @@ namespace Goon
         unsigned int indices[] = {0, 2, 3, 1, 2, 3};
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 
     Application::~Application()
