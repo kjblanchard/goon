@@ -1,14 +1,55 @@
 #include <Platform/OpenGL/OpenGLShader.hpp>
 #include <Goon/Core.hpp>
 #include <fstream>
+#include <glad/glad.h>
 
 namespace Goon
 {
-
-    OpenGLShader::OpenGLShader(std::string filepath)
+    OpenGLShader::OpenGLShader(const std::string &vertex_shader, const std::string &fragment_shader)
     {
-        m_ShaderData = LoadDataFromFile(filepath);
+        unsigned int vertexShader;
+        vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        const GLchar *vertex = vertex_shader.c_str();
+        glShaderSource(vertexShader, 1, &vertex, NULL);
+
+        glCompileShader(vertexShader);
+        // Check if we are able to compile the shader
+        int success;
+        char infoLog[512];
+        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+        if (!success)
+        {
+            glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+            GN_CORE_ERROR("Vertex shader compilation failed, {0}", infoLog);
+        }
+
+        unsigned int fragmentShader;
+        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        const GLchar *fragment = fragment_shader.c_str();
+        glShaderSource(fragmentShader, 1, &fragment, NULL);
+        glCompileShader(fragmentShader);
+        // end Fragment Shader
+
+        // Shader program
+        m_Id = glCreateProgram();
+        glAttachShader(m_Id, vertexShader);
+        glAttachShader(m_Id, fragmentShader);
+        glLinkProgram(m_Id);
+        glUseProgram(m_Id);
+        // Cleanup and get rid of te shaders.
+        glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
     }
+
+    void OpenGLShader::Bind()
+    {
+        glUseProgram(m_Id);
+    }
+    void OpenGLShader::Unbind()
+    {
+        glUseProgram(0);
+    }
+
     std::string OpenGLShader::LoadDataFromFile(std::string filepath)
     {
 
