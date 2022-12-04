@@ -20,4 +20,18 @@ namespace Goon
         }
     }
 
+    IndexBuffer *IndexBuffer::Create(uint32_t *indices, uint32_t size)
+    {
+        auto rendererType = Renderer::GetAPI();
+        GN_CORE_ASSERT(rendererType != RendererAPI::None, "Cannot create API with no backend.");
+        if (rendererType == RendererAPI::OpenGL)
+        {
+            return new OpenGLIndexBuffer(indices, size);
+        }
+        else
+        {
+            GN_CORE_ASSERT(true, "The backend type is not currently implemented.");
+        }
+    }
+
 }

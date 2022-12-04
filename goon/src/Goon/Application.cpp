@@ -34,7 +34,7 @@ namespace Goon
             -0.5f, 0.5f, 0.0f   // top left
         };
         // Vertex buffer
-        VertexBuffer::Create(vertices, sizeof(vertices));
+        m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
 
         // Vertex shader
         const char *vertexShaderSource = "#version 330 core\n"
@@ -62,14 +62,9 @@ namespace Goon
         // it beins at byte 0 (it is the only one)
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
-        // Index buffer (element buffer)
-        // This tells you the "order" to draw this with the indices
-        glGenBuffers(1, &m_IndexBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
         unsigned int indices[] = {0, 2, 3, 1, 2, 3};
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices));
 
-        // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 
     Application::~Application()

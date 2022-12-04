@@ -13,6 +13,7 @@ namespace Goon
     {
     public:
         inline static RendererAPI GetAPI() { return s_RendererAPI; }
+        static void ToggleWireframe();
 
     private:
         static RendererAPI s_RendererAPI;

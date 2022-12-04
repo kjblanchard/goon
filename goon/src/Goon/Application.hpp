@@ -11,36 +11,44 @@
 #include <Goon/LayerStack.hpp>
 #include <Goon/Window.hpp>
 
-namespace Goon {
+namespace Goon
+
+{
+    class VertexBuffer;
+    class IndexBuffer;
     class ImGuiLayer;
     /**
      * @brief The application that will be created.
      */
     class GN_API Application
     {
-        public:
-            Application();
-            virtual ~Application();
-            static Application& Get() { return *s_Application; }
-            /**
-             * @brief Called every tick, updates each layer.
-             */
-            void Run();
-            Window& GetWindow() { return *m_Window; }
-            void PushLayer(Layer* layer);
-            void PushOverlay(Layer* overlay);
-        private:
-            std::unique_ptr<Window> m_Window;
-            ImGuiLayer* m_ImGuiLayer;
-            bool m_Running = true;
-            void OnEvent(Event& e);
-            bool OnWindowClosed(WindowCloseEvent& e);
-            LayerStack m_LayerStack;
-            static Application* s_Application;
+    public:
+        Application();
+        virtual ~Application();
+        static Application &Get() { return *s_Application; }
+        /**
+         * @brief Called every tick, updates each layer.
+         */
+        void Run();
+        Window &GetWindow() { return *m_Window; }
+        void PushLayer(Layer *layer);
+        void PushOverlay(Layer *overlay);
 
-            unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+    private:
+        std::unique_ptr<Window> m_Window;
+        ImGuiLayer *m_ImGuiLayer;
+        bool m_Running = true;
+        void OnEvent(Event &e);
+        bool OnWindowClosed(WindowCloseEvent &e);
+        LayerStack m_LayerStack;
+        static Application *s_Application;
+
+    private:
+        unsigned int m_VertexArray;
+        VertexBuffer *m_VertexBuffer;
+        IndexBuffer *m_IndexBuffer;
     };
 
-    //To be defined in the client, for the entrypoint
-    Application* CreateApplication();
+    // To be defined in the client, for the entrypoint
+    Application *CreateApplication();
 }
