@@ -27,33 +27,15 @@ namespace Goon
         glGenVertexArrays(1, &m_VertexArray);
         glBindVertexArray(m_VertexArray);
 
+        // Basic triangle
         float vertices[] = {
             0.5f, 0.5f, 0.0f,   // top right
             0.5f, -0.5f, 0.0f,  // bottom right
             -0.5f, -0.5f, 0.0f, // bottom left
             -0.5f, 0.5f, 0.0f   // top left
         };
-        // Vertex buffer
         m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
-
-        // Vertex shader
-        const char *vertexShaderSource = "#version 330 core\n"
-                                         "layout (location = 0) in vec3 aPos; out vec3 color;\n"
-                                         "void main()\n"
-                                         "{\n"
-                                         "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                         "color = vec3(1.0,0.25,1.0);"
-                                         "}\0";
-        // Fragment shader
-        const char *fragmentShaderSource = "#version 330 core\n"
-                                           "out vec4 FragColor;\n"
-                                           "in vec3 color;\n"
-                                           "void main()\n"
-                                           "{\n"
-                                           "FragColor = vec4(color, 1.0f);\n"
-                                           "}\n";
-
-        auto shader = Shader::Create(vertexShaderSource, fragmentShaderSource);
+        auto shader = Shader::Create("basic.glsl");
 
         // this is 0 as we set the location = 0 in the vertex shader above.
         glEnableVertexAttribArray(0);
@@ -64,7 +46,6 @@ namespace Goon
 
         unsigned int indices[] = {0, 2, 3, 1, 2, 3};
         m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices));
-
     }
 
     Application::~Application()

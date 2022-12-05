@@ -21,10 +21,13 @@ wconfigure:
 build:
 	@cmake --build build
 
+install:
+	@cmake --install build
+
 clean:
 	@ - rm -rf build
 
-rebuild: clean configure build
+rebuild: clean configure build install
 brebuild: clean bconfigure build
 wrebuild: clean wconfigure build
 

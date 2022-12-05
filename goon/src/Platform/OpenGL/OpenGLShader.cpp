@@ -1,12 +1,12 @@
 #include <Platform/OpenGL/OpenGLShader.hpp>
 #include <Goon/Core.hpp>
-#include <fstream>
 #include <glad/glad.h>
 
 namespace Goon
 {
     OpenGLShader::OpenGLShader(const std::string &vertex_shader, const std::string &fragment_shader)
     {
+        //vertex
         unsigned int vertexShader;
         vertexShader = glCreateShader(GL_VERTEX_SHADER);
         const GLchar *vertex = vertex_shader.c_str();
@@ -22,12 +22,20 @@ namespace Goon
             glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
             GN_CORE_ERROR("Vertex shader compilation failed, {0}", infoLog);
         }
+        // end vertex
 
+        // fragment
         unsigned int fragmentShader;
         fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
         const GLchar *fragment = fragment_shader.c_str();
         glShaderSource(fragmentShader, 1, &fragment, NULL);
         glCompileShader(fragmentShader);
+        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+        if (!success)
+        {
+            glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+            GN_CORE_ERROR("Fragment shader compilation failed, {0}", infoLog);
+        }
         // end Fragment Shader
 
         // Shader program
@@ -36,6 +44,7 @@ namespace Goon
         glAttachShader(m_Id, fragmentShader);
         glLinkProgram(m_Id);
         glUseProgram(m_Id);
+
         // Cleanup and get rid of te shaders.
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
