@@ -4,6 +4,7 @@
 #include <Platform/OpenGL/OpenGLShader.hpp>
 #include <Goon/Core.hpp>
 #include <Goon/Log.hpp>
+#include <Tools/io.hpp>
 
 namespace Goon
 {
@@ -27,19 +28,5 @@ namespace Goon
         }
     }
 
-    std::string Shader::ReadFromFile(std::string &filepath)
-    {
-        std::stringstream data;
-        std::ifstream source(filepath, std::ifstream::in);
-        char c = source.get();
-        while (source.good())
-        {
-            data << c;
-            c = source.get();
-        }
-        GN_CORE_TRACE("Shader is {0}", data.str());
-        source.close();
-        return data.str();
-    }
 
 }

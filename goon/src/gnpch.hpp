@@ -3,6 +3,8 @@
 #include <utility>
 #include <memory>
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <algorithm>
 #include <functional>
 
@@ -11,8 +13,6 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include <sstream>
-#include <ostream>
 
 //Handle platform specific includes.
 #ifdef GN_PLATFORM_MACOS
