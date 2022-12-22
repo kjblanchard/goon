@@ -1,6 +1,7 @@
 .PHONY: config configure build release clean rebuild run lldb debug doc windows
 
 BUILD_SYSTEM = Ninja
+XCODE_BUILD_SYSTEM = Xcode
 BACKUP_BUILD_SYSTEM = 'Unix Makefiles'
 WINDOWS_BUILD_SYSTEM = 'MinGW Makefiles'
 BUILD_FOLDER = build/bin
@@ -11,6 +12,9 @@ all: build
 
 configure:
 	@cmake . -B build -D CMAKE_BUILD_TYPE=Debug -G $(BUILD_SYSTEM)
+
+xconfigure:
+	@cmake . -B build -D CMAKE_BUILD_TYPE=Debug -G $(XCODE_BUILD_SYSTEM)
 
 bconfigure:
 	@cmake . -B build -D CMAKE_BUILD_TYPE=Debug -G $(BACKUP_BUILD_SYSTEM)

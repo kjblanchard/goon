@@ -13,6 +13,29 @@ namespace Goon
 
     Application *Application::s_Application = nullptr;
 
+    static GLenum ShaderDataTypeToGLBaseType(ShaderDataType type)
+    {
+        switch (type)
+        {
+        case ShaderDataType::Float:
+        case ShaderDataType::Float2:
+        case ShaderDataType::Float3:
+        case ShaderDataType::Float4:
+        case ShaderDataType::Mat3:
+        case ShaderDataType::Mat4:
+            return GL_FLOAT;
+        case ShaderDataType::Int:
+        case ShaderDataType::Int2:
+        case ShaderDataType::Int3:
+        case ShaderDataType::Int4:
+            return GL_INT;
+        case ShaderDataType::Bool:
+            return GL_BOOL;
+        }
+
+        return 0;
+    }
+
     Application::Application()
     {
         GN_CORE_ASSERT(!s_Application, "Application is already created");
@@ -37,12 +60,28 @@ namespace Goon
         m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
         auto shader = Shader::Create("basic.glsl");
 
-        // this is 0 as we set the location = 0 in the vertex shader above.
-        glEnableVertexAttribArray(0);
-        // We need to tell opengl what this vertices actually looks like.
-        // on index 0, we are using 3 each, there is 3 * float for each vertice (we are saying one), then since it is the initial vertice,
-        // it beins at byte 0 (it is the only one)
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+        BufferLayout layout = {
+            {ShaderDataType::Float3, "a_Position"},
+        };
+
+        uint32_t index = 0;
+        m_VertexBuffer->SetLayout(layout);
+        for (auto &&element : layout)
+        {
+            // this is 0 as we set the location = 0 in the vertex shader above.
+            glEnableVertexAttribArray(index);
+            // We need to tell opengl what this vertices actually looks like.
+            // on index 0, we are using 3 each, there is 3 * float for each vertice (we are saying one), then since it is the initial vertice,
+            // it beins at byte 0 (it is the only one)
+            glVertexAttribPointer(index,
+                                  element.GetElementCount(),
+                                  ShaderDataTypeToGLBaseType(element.Type),
+                                  element.Normalized ? GL_TRUE : GL_FALSE,
+                                  layout.GetStride(),
+                                  (const void*)element.Offset
+                                  );
+            ++index;
+        }
 
         unsigned int indices[] = {0, 2, 3, 1, 2, 3};
         m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices));
