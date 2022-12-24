@@ -8,7 +8,7 @@ namespace Goon
     {
     public:
         OpenGLShader(const std::string& vertex_shader, const std::string& fragment_shader);
-        void Bind();
+        void Bind() override;
         void Unbind();
         std::string m_ShaderData;
     private:

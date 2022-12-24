@@ -10,12 +10,13 @@
 #include <Goon/Events/ApplicationEvent.hpp>
 #include <Goon/LayerStack.hpp>
 #include <Goon/Window.hpp>
+#include <Goon/Renderer/Buffer.hpp>
+#include <Goon/Renderer/VertexArray.hpp>
+#include <Goon/Renderer/Shader.hpp>
 
 namespace Goon
 
 {
-    class VertexBuffer;
-    class IndexBuffer;
     class ImGuiLayer;
     /**
      * @brief The application that will be created.
@@ -44,9 +45,12 @@ namespace Goon
         static Application *s_Application;
 
     private:
-        unsigned int m_VertexArray;
-        VertexBuffer *m_VertexBuffer;
-        IndexBuffer *m_IndexBuffer;
+        std::shared_ptr<Shader> m_Shader;
+        std::shared_ptr<VertexArray> m_VertexArray;
+        // std::shared_ptr<VertexBuffer> m_VertexBuffer;
+        // std::shared_ptr<IndexBuffer> m_IndexBuffer;
+
+        std::shared_ptr<VertexArray> m_SquareVertexArray;
     };
 
     // To be defined in the client, for the entrypoint

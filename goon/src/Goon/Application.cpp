@@ -6,35 +6,11 @@
 #include <Goon/Renderer/Renderer.hpp>
 #include <Goon/ImGui/ImGuiLayer.hpp>
 #include <Goon/Renderer/Shader.hpp>
-#include <Goon/Renderer/Buffer.hpp>
 
 namespace Goon
 {
 
     Application *Application::s_Application = nullptr;
-
-    static GLenum ShaderDataTypeToGLBaseType(ShaderDataType type)
-    {
-        switch (type)
-        {
-        case ShaderDataType::Float:
-        case ShaderDataType::Float2:
-        case ShaderDataType::Float3:
-        case ShaderDataType::Float4:
-        case ShaderDataType::Mat3:
-        case ShaderDataType::Mat4:
-            return GL_FLOAT;
-        case ShaderDataType::Int:
-        case ShaderDataType::Int2:
-        case ShaderDataType::Int3:
-        case ShaderDataType::Int4:
-            return GL_INT;
-        case ShaderDataType::Bool:
-            return GL_BOOL;
-        }
-
-        return 0;
-    }
 
     Application::Application()
     {
@@ -47,44 +23,55 @@ namespace Goon
         m_Window->SetEventCallback(GN_BIND_EVENT_FN(&Application::OnEvent));
 
         // Vertex array
-        glGenVertexArrays(1, &m_VertexArray);
-        glBindVertexArray(m_VertexArray);
+        uint32_t num = 0;
+        glGenVertexArrays(1, &num);
+        // glBindVertexArray(m_VertexArray);
+        m_VertexArray.reset(VertexArray::Create());
 
         // Basic triangle
         float vertices[] = {
-            0.5f, 0.5f, 0.0f,   // top right
-            0.5f, -0.5f, 0.0f,  // bottom right
-            -0.5f, -0.5f, 0.0f, // bottom left
-            -0.5f, 0.5f, 0.0f   // top left
-        };
-        m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
-        auto shader = Shader::Create("basic.glsl");
+            // 0.5f, 0.5f, 0.0f,   // top right
+            // 0.5f, -0.5f, 0.0f,  // bottom right
+            // -0.5f, -0.5f, 0.0f, // bottom left
+            // -0.5f, 0.5f, 0.0f   // top left
+            0.5f, 0.5f, 0.0f, 1.0f, 1, 1.0f, 1.0f,
+            0.5f, -0.5f, 0.0f, 1.0f, 0, 1.0f, 1.0f,
+            -0.5f, -0.5f, 0.0f, 1.0f, 0, 1.0f, 1.0,
+            -0.5f, 0.5f, 0.0f, 1.0f, 0, 1.0f, 1.0f};
+        std::shared_ptr<VertexBuffer> vertexBuffer;
+        vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+        m_Shader.reset(Shader::Create("basic.glsl"));
 
         BufferLayout layout = {
             {ShaderDataType::Float3, "a_Position"},
+            {ShaderDataType::Float4, "a_Color"},
         };
-
-        uint32_t index = 0;
-        m_VertexBuffer->SetLayout(layout);
-        for (auto &&element : layout)
-        {
-            // this is 0 as we set the location = 0 in the vertex shader above.
-            glEnableVertexAttribArray(index);
-            // We need to tell opengl what this vertices actually looks like.
-            // on index 0, we are using 3 each, there is 3 * float for each vertice (we are saying one), then since it is the initial vertice,
-            // it beins at byte 0 (it is the only one)
-            glVertexAttribPointer(index,
-                                  element.GetElementCount(),
-                                  ShaderDataTypeToGLBaseType(element.Type),
-                                  element.Normalized ? GL_TRUE : GL_FALSE,
-                                  layout.GetStride(),
-                                  (const void*)element.Offset
-                                  );
-            ++index;
-        }
+        vertexBuffer->SetLayout(layout);
+        m_VertexArray->AddVertexBuffer(vertexBuffer);
 
         unsigned int indices[] = {0, 2, 3, 1, 2, 3};
-        m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices));
+        std::shared_ptr<IndexBuffer> indexBuffer;
+        indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices)));
+        m_VertexArray->SetIndexBuffer(indexBuffer);
+
+        m_SquareVertexArray.reset(VertexArray::Create());
+        float squareVertices[] = {
+            -0.75f, -0.75f, 0.0f, 0.0f, 1, 1.0f, 1.0f,
+            0.75f, -0.75f, 0.0f, 0.0f, 0, 1.0f, 1.0f,
+            0.75f, 0.75f, 0.0f, 0.0f, 0, 1.0f, 1.0,
+            -0.75f, 0.75f, 0.0f, 0.0f, 0, 1.0f, 1.0f};
+        std::shared_ptr<VertexBuffer> squareVBO;
+        squareVBO.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+        BufferLayout squareLayout = {
+            {ShaderDataType::Float3, "a_Position"},
+            {ShaderDataType::Float4, "a_Color"},
+        };
+        squareVBO->SetLayout(squareLayout);
+        m_SquareVertexArray->AddVertexBuffer(squareVBO);
+        unsigned int squareIndices[] = {0, 1, 2, 2, 3, 0};
+        std::shared_ptr<IndexBuffer> squareIndexBuffer;
+        squareIndexBuffer.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices)));
+        m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
     }
 
     Application::~Application()
@@ -98,9 +85,13 @@ namespace Goon
             glClearColor(0.1, 0.1, 0.1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            glBindVertexArray(m_VertexArray);
+            m_Shader->Bind();
+
+            m_SquareVertexArray->Bind();
+            glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            m_VertexArray->Bind();
             // Since we are drawing with index/element buffers, we use draw elements. Lets draw 2 triangles.
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+            glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
             for (Layer *layer : m_LayerStack)
                 layer->OnUpdate();
             m_ImGuiLayer->Begin();
