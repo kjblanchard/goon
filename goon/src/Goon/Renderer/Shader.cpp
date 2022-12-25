@@ -11,9 +11,9 @@ namespace Goon
 
     Shader *Shader::Create(const std::string &shaderSourcePath)
     {
-        auto rendererType = Renderer::GetAPI();
-        GN_CORE_ASSERT(rendererType != RendererAPI::None, "Cannot create API with no backend.");
-        if (rendererType == RendererAPI::OpenGL)
+        auto rendererType = RendererAPI::GetAPI();
+        GN_CORE_ASSERT(rendererType != RendererAPI::API::None, "Cannot create API with no backend.");
+        if (rendererType == RendererAPI::API::OpenGL)
         {
             std::string vFilePath = "shaders/vertex/" + shaderSourcePath;
             std::string fFilePath = "shaders/fragment/" + shaderSourcePath;

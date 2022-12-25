@@ -1,6 +1,6 @@
 #include "gnpch.hpp"
 #include <Goon/Renderer/VertexArray.hpp>
-#include <Goon/Renderer/Renderer.hpp>
+#include <Goon/Renderer/RendererAPI.hpp>
 #include <Platform/OpenGL/OpenGLVertexArray.hpp>
 
 namespace Goon
@@ -8,9 +8,9 @@ namespace Goon
 
     VertexArray* VertexArray::Create()
     {
-        auto rendererType = Renderer::GetAPI();
-        GN_CORE_ASSERT(rendererType != RendererAPI::None, "Cannot create API with no backend.");
-        if (rendererType == RendererAPI::OpenGL)
+        auto rendererType = RendererAPI::GetAPI();
+        GN_CORE_ASSERT(rendererType != RendererAPI::API::None, "Cannot create API with no backend.");
+        if (rendererType == RendererAPI::API::OpenGL)
         {
             return new OpenGLVertexArray();
         }
