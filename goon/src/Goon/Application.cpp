@@ -1,11 +1,12 @@
 #include <gnpch.hpp>
-#include <glad/glad.h>
+// #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <Goon/Application.hpp>
 #include <Goon/Log.hpp>
 #include <Goon/Renderer/Renderer.hpp>
 #include <Goon/ImGui/ImGuiLayer.hpp>
 #include <Goon/Renderer/Shader.hpp>
+#include <Goon/Renderer/RenderCommand.hpp>
 
 namespace Goon
 {
@@ -24,7 +25,7 @@ namespace Goon
 
         // Vertex array
         uint32_t num = 0;
-        glGenVertexArrays(1, &num);
+        // glGenVertexArrays(1, &num);
         // glBindVertexArray(m_VertexArray);
         m_VertexArray.reset(VertexArray::Create());
 
@@ -78,16 +79,20 @@ namespace Goon
     {
         while (m_Running)
         {
-            glClearColor(0.1, 0.1, 0.1, 1);
-            glClear(GL_COLOR_BUFFER_BIT);
+            // glClearColor();
+            // glClear(GL_COLOR_BUFFER_BIT);
+            RenderCommand::SetClearColor({0.1, 0.1, 0.1, 1});
+            RenderCommand::Clear();
 
             m_Shader->Bind();
+            Renderer::Submit(m_SquareVertexArray);
+            Renderer::Submit(m_VertexArray);
 
-            m_SquareVertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-            m_VertexArray->Bind();
+            // m_SquareVertexArray->Bind();
+            // glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            // m_VertexArray->Bind();
             // Since we are drawing with index/element buffers, we use draw elements. Lets draw 2 triangles.
-            glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            // glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
             for (Layer *layer : m_LayerStack)
                 layer->OnUpdate();
             m_ImGuiLayer->Begin();
