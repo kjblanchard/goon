@@ -171,3 +171,8 @@ set(FOLDERS_TO_COPY shaders)
 install(DIRECTORY ${FOLDERS_TO_COPY}
         DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
         COMPONENT assets)
+
+# #########################################
+# Test
+# #########################################
+add_test(NAME cppclean COMMAND ${CMAKE_SOURCE_DIR}/tests/cppclean.sh ${CMAKE_SOURCE_DIR})

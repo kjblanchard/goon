@@ -45,3 +45,8 @@ debug: rebuild lldb
 
 doc:
 	@cd ./goon/doc/; ./update_doc.sh; cd -
+
+test:
+	@cd ./build && ctest --output-on-failure; cd -
+vtest:
+	@cd ./build && ctest --output-on-failure --verbose; cd -

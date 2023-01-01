@@ -56,6 +56,7 @@ namespace Goon {
              */
             inline float GetMousePositionY() { return GetMousePositionYImpl(); }
             inline static Input& Get() { return *s_Instance; }
+            virtual ~Input() = default;
 
         protected:
             virtual bool IsKeyPressedImpl(int keycode) const = 0;
