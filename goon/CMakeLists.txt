@@ -45,16 +45,31 @@ endif(UNIX AND NOT APPLE)
 # #########################################
 # Options
 # #########################################
+option(GOON_GIT_SUBMODULE "Check submodules during build" ON)
 option(GOON_BUILD_PCH "Uses a PCH file to try and speed up compilation" ON)
 option(GOON_BUILD_ENGINE "Builds the full engine into the project" ON)
 option(CMAKE_DEBUG_VARIABLES "Runs a debug on all variables for troubleshooting" OFF)
 # Not implemented.
-option(GOON_INSTALL_SUBMODULES "Do not install the submodules" OFF)
+option(GOON_INSTALL_SUBMODULES "Install the submodules" ON)
 
 # #########################################
 # Build libraries
 # #########################################
 message(STATUS "Building libraries")
+
+#Update submodules
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+    if(GOON_GIT_SUBMODULE)
+        message(STATUS "Updating git submodules")
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            message(FATAL_ERROR "git submodule update --init --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+        endif()
+    endif()
+endif()
 
 # GLAD
 # add_subdirectory(vendor/glad)
