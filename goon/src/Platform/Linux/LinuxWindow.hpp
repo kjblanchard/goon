@@ -14,7 +14,7 @@ namespace Goon {
     /**
      * @brief A window used on MacOS
      */
-    class GN_API MacWindow : public Window
+    class GN_API LinuxWindow : public Window
     {
         public:
             /**
@@ -22,8 +22,8 @@ namespace Goon {
              *
              * @param props The properties of the window
              */
-            MacWindow(const WindowProps& props);
-            virtual ~MacWindow();
+            LinuxWindow(const WindowProps& props);
+            virtual ~LinuxWindow();
             void OnUpdate() override;
             inline unsigned int GetWidth() const override { return m_Data.Width; }
             inline unsigned int GetHeight() const override { return m_Data.Height; }
