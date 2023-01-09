@@ -6,9 +6,7 @@
 #include <Goon/Events/KeyEvent.hpp>
 #include <Goon/Events/MouseEvent.hpp>
 #include <Goon/Log.hpp>
-
-// TODO Use windows window hpp file.
-#include <Platform/MacWindow.hpp>
+#include <Platform/Linux/LinuxWindow.hpp>
 
 
 namespace Goon {
@@ -27,14 +25,14 @@ namespace Goon {
         GN_CORE_ERROR("GLFW Error {0}: {1}",error, description );
     }
 
-    std::pair<float, float> MacWindow::GetWindowContentScaling() const
+    std::pair<float, float> LinuxWindow::GetWindowContentScaling() const
     {
         float scalex, scaley;
         glfwGetWindowContentScale(m_window, &scalex, &scaley);
         return { scalex, scaley };
     }
 
-    std::pair<int, int> MacWindow::GetWindowFrameBufferSize() const
+    std::pair<int, int> LinuxWindow::GetWindowFrameBufferSize() const
     {
         int display_w, display_h;
         glfwGetFramebufferSize(m_window, &display_w, &display_h);
@@ -46,21 +44,21 @@ namespace Goon {
     Window* Window::Create(const WindowProps& props)
     {
 
-        return new MacWindow(props);
+        return new LinuxWindow(props);
     }
 
-    MacWindow::MacWindow(const WindowProps& props)
+    LinuxWindow::LinuxWindow(const WindowProps& props)
     {
         Init(props);
     }
 
-    MacWindow::~MacWindow()
+    LinuxWindow::~LinuxWindow()
     {
         Shutdown();
 
     }
 
-    void MacWindow::Init(const WindowProps& props)
+    void LinuxWindow::Init(const WindowProps& props)
     {
         m_Data.Title = props.Title;
         m_Data.Width = props.Width;
@@ -91,7 +89,7 @@ namespace Goon {
                     WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                     auto event = KeyTypedEvent(code);
                     data.Event(event);
-                
+
                 });
         glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height)
                 {
@@ -172,18 +170,18 @@ namespace Goon {
 
     }
 
-    void MacWindow::Shutdown()
+    void LinuxWindow::Shutdown()
     {
         glfwDestroyWindow(m_window);
     }
 
-    void MacWindow::OnUpdate()
+    void LinuxWindow::OnUpdate()
     {
         glfwPollEvents();
         glfwSwapBuffers(m_window);
     }
 
-    void MacWindow::SetVSync(bool enabled)
+    void LinuxWindow::SetVSync(bool enabled)
     {
         if(enabled)
             glfwSwapInterval(1);
@@ -191,7 +189,7 @@ namespace Goon {
             glfwSwapInterval(0);
         m_Data.VSync = enabled;
     }
-    bool MacWindow::IsVSync() const
+    bool LinuxWindow::IsVSync() const
     {
         return m_Data.VSync;
     }
