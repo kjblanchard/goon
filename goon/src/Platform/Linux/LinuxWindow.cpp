@@ -8,7 +8,7 @@
 #include <Goon/Log.hpp>
 
 // TODO Use windows window hpp file.
-#include <Platform/MacWindow.hpp>
+#include <Platform/Linux/LinuxWindow.hpp>
 
 
 namespace Goon {
@@ -91,7 +91,7 @@ namespace Goon {
                     WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                     auto event = KeyTypedEvent(code);
                     data.Event(event);
-                
+
                 });
         glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height)
                 {
