@@ -1,5 +1,5 @@
-#include "Platform/MacWindow.hpp"
 #include <gnpch.hpp>
+#include <Platform/Mac/MacWindow.hpp>
 //TODO I should be able to remove glfw after moving to the imgui docking.
 #include <GLFW/glfw3.h>
 #include <imgui.h>

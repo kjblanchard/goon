@@ -1,11 +1,11 @@
 #include <gnpch.hpp>
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <Goon/Events/ApplicationEvent.hpp>
 #include <Goon/Events/KeyEvent.hpp>
 #include <Goon/Events/MouseEvent.hpp>
 #include <Goon/Log.hpp>
-#include <Platform/MacWindow.hpp>
+#include <Platform/Mac/MacWindow.hpp>
+#include <Platform/OpenGL/OpenGLContext.hpp>
 
 
 namespace Goon {
@@ -63,6 +63,7 @@ namespace Goon {
         m_Data.Width = props.Width;
         m_Data.Height = props.Height;
         GN_CORE_INFO("Creating window {0} ({1} {2})", props.Title, props.Width, props.Height);
+
         if(!s_GLFWInitialized)
         {
             int success = glfwInit();
@@ -70,15 +71,18 @@ namespace Goon {
             glfwSetErrorCallback(GLFWErrorCallback);
             s_GLFWInitialized = true;
         }
+
+
+
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         m_window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-        //m_DpiScale = GetWindowDpiScaling();
-        glfwMakeContextCurrent(m_window);
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        GN_CORE_ASSERT(status, "Failed to initialize glad");
+        m_Context = new OpenGLContext(m_window);
+        m_Context->Init();
+
         glfwSetWindowUserPointer(m_window, &m_Data);
         SetVSync(true);
 
@@ -177,7 +181,7 @@ namespace Goon {
     void MacWindow::OnUpdate()
     {
         glfwPollEvents();
-        glfwSwapBuffers(m_window);
+        m_Context->SwapBuffers();
     }
 
     void MacWindow::SetVSync(bool enabled)

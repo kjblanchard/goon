@@ -41,3 +41,5 @@ build/
 #New
 update_doc.sh
 doc/
+
+Testing/
