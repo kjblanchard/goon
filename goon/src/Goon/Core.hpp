@@ -1,14 +1,16 @@
-// #ifdef GN_PLATFORM_WINDOWS
-// #ifdef GN_BUILD_DLL
-// #define GN_API __declspec(dllexport)
-// #else
-// #define GN_API __declspec(dllimport)
-// #endif
-// #else
+#ifdef GN_PLATFORM_WINDOWS
+#ifdef GN_BUILD_DLL
+#define GN_API __declspec(dllexport)
+#else
+#define GN_API __declspec(dllimport)
+#endif
+#else
 #define GN_API
-// #endif
+#endif
 
 #define BIT(x) (1 << x)
+
+
 #if defined(GN_PLATFORM_MACOS) || defined(GN_PLATFORM_LINUX)
 #ifdef GN_ENABLE_ASSERTS
 #include <signal.h>
