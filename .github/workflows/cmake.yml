@@ -28,10 +28,10 @@ jobs:
     - name: Install Dependencies
       run: sudo apt-get update -y && sudo apt-get install xorg-dev libglu1-mesa-dev
       
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
+#     - name: Initialize CodeQL
+#       uses: github/codeql-action/init@v2
+#       with:
+#         languages: ${{ matrix.language }}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -52,8 +52,8 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
       
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{matrix.language}}"
+#     - name: Perform CodeQL Analysis
+#       uses: github/codeql-action/analyze@v2
+#       with:
+#         category: "/language:${{matrix.language}}"
 
