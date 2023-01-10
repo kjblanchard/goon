@@ -8,7 +8,7 @@ namespace Goon {
     /**
      * @brief Singleton logging class for the engine and application
      */
-    class GN_API Log
+    class Log
     {
         public:
             /**

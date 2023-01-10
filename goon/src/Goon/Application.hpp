@@ -21,7 +21,7 @@ namespace Goon
     /**
      * @brief The application that will be created.
      */
-    class GN_API Application
+    class Application
     {
     public:
         Application();
