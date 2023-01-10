@@ -21,6 +21,14 @@ int main(int , char** )
     delete app;
 }
 
+int main(int argc, char *argv[])
+{
+    Goon::Log::Init();
+    auto app = Goon::CreateApplication();
+    app->Run();
+    delete app;
+}
+
 #endif
 
 #ifdef GN_PLATFORM_LINUX

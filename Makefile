@@ -32,8 +32,8 @@ clean:
 	@ - rm -rf build
 
 rebuild: clean configure build install
-brebuild: clean bconfigure build
-wrebuild: clean wconfigure build
+brebuild: clean bconfigure build install
+wrebuild: clean wconfigure build install
 
 run:
 	@cd ./$(BUILD_FOLDER) && ./$(BINARY_NAME)

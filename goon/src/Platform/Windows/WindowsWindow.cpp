@@ -6,9 +6,8 @@
 #include <Goon/Events/KeyEvent.hpp>
 #include <Goon/Events/MouseEvent.hpp>
 #include <Goon/Log.hpp>
+#include <Platform/Windows/WindowsWindow.hpp>
 
-// TODO Use windows window hpp file.
-#include <Platform/MacWindow.hpp>
 
 
 namespace Goon {
@@ -27,14 +26,14 @@ namespace Goon {
         GN_CORE_ERROR("GLFW Error {0}: {1}",error, description );
     }
 
-    std::pair<float, float> MacWindow::GetWindowContentScaling() const
+    std::pair<float, float> WindowsWindow::GetWindowContentScaling() const
     {
         float scalex, scaley;
         glfwGetWindowContentScale(m_window, &scalex, &scaley);
         return { scalex, scaley };
     }
 
-    std::pair<int, int> MacWindow::GetWindowFrameBufferSize() const
+    std::pair<int, int> WindowsWindow::GetWindowFrameBufferSize() const
     {
         int display_w, display_h;
         glfwGetFramebufferSize(m_window, &display_w, &display_h);
@@ -42,25 +41,25 @@ namespace Goon {
     }
 
 
-    //If this file is included, it defines the Window create function so that when a window create is called, a macwindow is created.
+    //If this file is included, it defines the Window create function so that when a window create is called, a Windowswindow is created.
     Window* Window::Create(const WindowProps& props)
     {
 
-        return new MacWindow(props);
+        return new WindowsWindow(props);
     }
 
-    MacWindow::MacWindow(const WindowProps& props)
+    WindowsWindow::WindowsWindow(const WindowProps& props)
     {
         Init(props);
     }
 
-    MacWindow::~MacWindow()
+    WindowsWindow::~WindowsWindow()
     {
         Shutdown();
 
     }
 
-    void MacWindow::Init(const WindowProps& props)
+    void WindowsWindow::Init(const WindowProps& props)
     {
         m_Data.Title = props.Title;
         m_Data.Width = props.Width;
@@ -172,18 +171,18 @@ namespace Goon {
 
     }
 
-    void MacWindow::Shutdown()
+    void WindowsWindow::Shutdown()
     {
         glfwDestroyWindow(m_window);
     }
 
-    void MacWindow::OnUpdate()
+    void WindowsWindow::OnUpdate()
     {
         glfwPollEvents();
         glfwSwapBuffers(m_window);
     }
 
-    void MacWindow::SetVSync(bool enabled)
+    void WindowsWindow::SetVSync(bool enabled)
     {
         if(enabled)
             glfwSwapInterval(1);
@@ -191,7 +190,7 @@ namespace Goon {
             glfwSwapInterval(0);
         m_Data.VSync = enabled;
     }
-    bool MacWindow::IsVSync() const
+    bool WindowsWindow::IsVSync() const
     {
         return m_Data.VSync;
     }

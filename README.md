@@ -31,8 +31,6 @@ All of the licenses that I'm using will be listed here.
 - **[Audacity](https://www.audacityteam.org)** - Music edits
 
 ## Building
-- All dependencies are in the external folder, and if you need any of them, pull the submodule and build/install them with 
-- - git submodule update --init --recursive
 - Only tested with clang currently on macos/windows/linux.  Windows sets prefix to c/cmake, so make sure when you install your libs to put them there, or change the prefix path in cmake
 
 ## Authors
